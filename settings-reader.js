@@ -838,7 +838,26 @@ function SettingsConfigSettingNames() {
             0xd96082b6: "Zipline / rope",
         },
         settings: {
-            0xa785cdca: ["Settings", "Cancel with ability key"],
+            0x065c5efe: ["Settings", "Contextual ping wheel"],
+            0xb18e4c9d: ["Audio", "Subtitles"],
+            0x492def31: ["Visual", "HUD ping indicator"],
+            0xffecba37: ["Settings", "Search by item name only"],
+            0x48dc2761: ["Visual", "Clamp ultrawide HUD"],
+            0x54f4cd08: ["Visual", "Gameplay frame rate limit"],
+            0x3b6bcc5c: ["Visual", "Menu frame rate limit"],
+            0xbe510969: ["Audio", "Master volume"],
+            0xc29b77bb: ["Audio", "Game volume"],
+            0x994f214a: ["Audio", "Music volume"],
+            0x6d677f0b: ["Audio", "Voice volume"],
+            0x24eca3f0: ["Visual", "Field of view"],
+            0xfb572611: ["Visual", "Cursor size"],
+            0x4c20c2ec: ["Visual", "Custom subtitle style"],
+            0x3cc75873: ["Visual", "Subtitle font size"],
+            0x164ffe67: ["Visual", "Subtitle background opacity"],
+            0x62d0f723: ["Visual", "Subtitle outline thickness"],
+            0xb2179cc6: ["Visual", "Bold subtitles"],
+            0x84f7d112: ["Visual", "Uppercase subtitles"],
+            0xa785cdca: ["Keybinds", "Cancel with ability key"],
             0x4c7c8d33: ["Reticle", "Reticle blue"],
             0x73200401: ["Reticle", "Reticle green"],
             0x10df609c: ["Reticle", "Reticle red"],
@@ -1431,13 +1450,29 @@ var SettingsConfigAnalysis = (function () {
         return {
             mouseSensitivity: choice === undefined ? mouseDefault : (choice === true || object.mouseSensitivity === true),
             crosshair: object.crosshair !== false,
-            keybinds: object.keybinds !== false
+            keybinds: object.keybinds !== false,
+            audio: object.audio !== false, visual: object.visual !== false, other: object.other !== false
         };
+    }
+
+    function extraGroup(key) {
+        if (Object.prototype.hasOwnProperty.call(mouseIds,key)) return "mouseSensitivity";
+        var category = SettingsConfigExtra.fields[key].category;
+        if (category === "Audio") return "audio";
+        if (["HUD","Video","Camera","Accessibility","Mouse"].indexOf(category) >= 0 ||
+            key === "player_ping_indicator_enabled") return "visual";
+        return "other";
+    }
+
+    function nativeGroup(id,names) {
+        if (mouseId(id)) return "mouseSensitivity";
+        if (!names[id]) return "other";
+        return {Reticle:"crosshair", Audio:"audio", Visual:"visual", Keybinds:"keybinds"}[names[id][0]] || "other";
     }
 
     function requiresHeroSettings(fields, choice) {
         var options = importOptions(choice, false);
-        return fields.heroOther || (fields.heroCrosshair && options.crosshair) ||
+        return (fields.heroOther && options.other) || (fields.heroAudio && options.audio) || (fields.heroVisual && options.visual) || (fields.heroCrosshair && options.crosshair) ||
             (fields.heroKeybinds && options.keybinds) || (fields.heroMouseSensitivity && options.mouseSensitivity);
     }
 
@@ -1446,15 +1481,15 @@ var SettingsConfigAnalysis = (function () {
     function scopedPayload(code, options, extra, inspectOnly) {
         var body = contents(code, SettingsConfigCreateZstd), doc = {recordCount:0};
         var names = SettingsConfigSettingNames().settings;
-        var fields = {mouseSensitivity:false, crosshair:false, keybinds:false, other:false,
-            heroMouseSensitivity:false, heroCrosshair:false, heroKeybinds:false, heroOther:false};
+        var fields = {mouseSensitivity:false, crosshair:false, keybinds:false, audio:false, visual:false, other:false,
+            heroMouseSensitivity:false, heroCrosshair:false, heroKeybinds:false, heroAudio:false, heroVisual:false, heroOther:false};
         var parts = [], changed = false, hasContent = false;
         function found(category, hero) {
             fields[category] = true;
             if (hero) fields["hero" + category[0].toUpperCase() + category.slice(1)] = true;
         }
         if (extra) Object.keys(extra.values).forEach(function (key) {
-            found(Object.prototype.hasOwnProperty.call(mouseIds, key) ? "mouseSensitivity" : "other", false);
+            found(extraGroup(key), false);
         });
         each({data:body, at:0, end:body.length}, doc, function (tag, group, start) {
             if (tag === 7 || tag === 8) {
@@ -1466,7 +1501,11 @@ var SettingsConfigAnalysis = (function () {
             }
             if (tag !== 2 && tag !== 3) {
                 if ((tag === 4 || tag === 5) && !options.keybinds) { changed = true; return; }
-                if (tag !== 1 && tag !== 4 && tag !== 5) { hasContent = true; fields.other = true; }
+                if (tag !== 1 && tag !== 4 && tag !== 5) {
+                    fields.other = true;
+                    if (!options.other) { changed = true; return; }
+                    hasContent = true;
+                }
                 if (!inspectOnly) parts.push(body.subarray(start, group.end));
                 return;
             }
@@ -1480,12 +1519,12 @@ var SettingsConfigAnalysis = (function () {
                         id = number(value);
                     });
                     if (id === undefined) invalid();
-                    var category = mouseId(id) ? "mouseSensitivity" :
-                        (names[id] && names[id][0] === "Reticle" ? "crosshair" : "other");
+                    var category = nativeGroup(id,names);
                     found(category, tag === 3);
                     if (options[category] === false) { changed = removed = true; return; }
                 } else if (key !== 1 || tag !== 3) {
                     found("other", tag === 3);
+                    if (!options.other) { changed = removed = true; return; }
                 }
                 if (key !== 1 || tag !== 3) hasEntries = true;
                 if (!inspectOnly) kept.push(body.subarray(itemStart, item.end));
@@ -1602,7 +1641,7 @@ var SettingsConfigAnalysis = (function () {
                 var field = SettingsConfigExtra.fields[key], wanted = extra.values[key];
                 var actual = current && current.values[key];
                 var nativeId = mouseIds[key];
-                if (nativeId && !options.mouseSensitivity) return;
+                if (!options[extraGroup(key)]) return;
                 if (nativeId) {
                     replacedBase[nativeId] = true;
                     var baseValues = before.groups["convar:"];
@@ -1629,7 +1668,7 @@ var SettingsConfigAnalysis = (function () {
             var previous = before.groups[group.kind + ":" + group.hero], base = before.groups[group.kind + ":"];
             var hero = group.hero ? names.heroes[group.hero] || group.hero.slice(5).replace(/_/g, " ") : "Base settings";
             group.ids.forEach(function (id) {
-                if (group.kind === "convar" && !options.mouseSensitivity && mouseId(id)) return;
+                if (group.kind === "convar" && !options[nativeGroup(id,names.settings)]) return;
                 if (group.kind === "convar" && names.settings[id] && names.settings[id][0] === "Reticle") return;
                 if (!group.hero && group.kind === "convar" && replacedBase[id]) return;
                 var inherited = previous && previous.entries[id];
@@ -1664,7 +1703,7 @@ var SettingsConfigAnalysis = (function () {
         return result;
     }
 
-    return {compare: analyze, completeExport: completeExport, hasMouseSensitivity: hasMouseSensitivity,
+    return {importOptions:importOptions, extraGroup:extraGroup, compare: analyze, completeExport: completeExport, hasMouseSensitivity: hasMouseSensitivity,
         describe: function (code, heroSpecific, extraSettings) { return analyze(null, code, true, undefined, extraSettings); },
         importable: function (code, extra) { return scopedPayload(code, importOptions(undefined, true), extra, true); },
         prepareImport: function (code, choice) { return scopedPayload(code, importOptions(choice, false), undefined, false); },
