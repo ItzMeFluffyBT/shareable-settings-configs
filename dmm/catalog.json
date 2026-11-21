@@ -1,5 +1,5 @@
 {
-  "snapshotId": "85adb1849f039aa252a06efc0534865822d92d3de693cf45456d64380bff0c3e",
+  "snapshotId": "af0810d7029bb35b46a2197ed3c253f17b2939d83905f801a21933be40231381",
   "items": [
     {
       "id": "settings-config",
@@ -7,7 +7,7 @@
       "availability": "available",
       "isNsfw": false,
       "images": [
-        "https://btfluffy.github.io/shareable-settings-configs/art/shareable-settings-configs.jpg"
+        "https://itzmefluffybt.github.io/shareable-settings-configs/art/shareable-settings-configs.jpg"
       ],
       "detailUrl": "./settings-config.json"
     }
