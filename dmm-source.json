@@ -1,0 +1,22 @@
+{
+  "format": "dmm-source",
+  "protocolVersion": "1.0",
+  "sourceId": "deadlock-config-library",
+  "name": "Shareable Settings Configs",
+  "gameId": "deadlock",
+  "catalog": {
+    "kind": "static",
+    "indexUrl": "./dmm/catalog.json"
+  },
+  "networkOrigins": {
+    "api": [
+      "https://btfluffy.github.io"
+    ],
+    "downloads": [
+      "https://btfluffy.github.io"
+    ],
+    "media": [
+      "https://btfluffy.github.io"
+    ]
+  }
+}

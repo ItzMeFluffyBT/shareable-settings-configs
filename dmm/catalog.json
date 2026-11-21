@@ -1,0 +1,15 @@
+{
+  "snapshotId": "85adb1849f039aa252a06efc0534865822d92d3de693cf45456d64380bff0c3e",
+  "items": [
+    {
+      "id": "settings-config",
+      "title": "Shareable Settings Configs",
+      "availability": "available",
+      "isNsfw": false,
+      "images": [
+        "https://btfluffy.github.io/shareable-settings-configs/art/shareable-settings-configs.jpg"
+      ],
+      "detailUrl": "./settings-config.json"
+    }
+  ]
+}
