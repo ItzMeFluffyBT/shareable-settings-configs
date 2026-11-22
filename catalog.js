@@ -16,7 +16,7 @@ export function viewerHeaders(create = false) {
     if (!/^[a-f0-9]{64}$/.test(key)) throw new Error("The saved favorites key could not be read.");
     return {"X-Config-Favorites":key};
 }
-function legacyFavorites() {
+export function legacyFavorites() {
     const list = JSON.parse(localStorage.getItem(legacyKey) || "[]");
     if (!Array.isArray(list) || !list.every(validId)) throw new Error("The saved favorites list could not be read.");
     return [...new Set(list)];

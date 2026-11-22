@@ -9,8 +9,8 @@
   "description": "Save, compare and share sensitivity, keybinds and reticle presets from the Escape menu.",
   "homepageUrl": "https://itzmefluffybt.github.io/shareable-settings-configs/",
   "release": {
-    "id": "vpk-d93ef75ab1a6d4866f00ece7cfb289bda6ed2730f3676f5195210b6ec281c6ce",
-    "contentRevision": "d93ef75ab1a6d4866f00ece7cfb289bda6ed2730f3676f5195210b6ec281c6ce",
+    "id": "vpk-088c3deb2086a097cbc8cd4886ae9a96049890d9174b764a3300b258faa31899",
+    "contentRevision": "088c3deb2086a097cbc8cd4886ae9a96049890d9174b764a3300b258faa31899",
     "artifacts": [
       {
         "id": "community-vpk",
@@ -19,9 +19,9 @@
         "download": {
           "url": "../downloads/settings-config.vpk"
         },
-        "size": 228247,
+        "size": 231402,
         "hashes": {
-          "sha256": "d93ef75ab1a6d4866f00ece7cfb289bda6ed2730f3676f5195210b6ec281c6ce"
+          "sha256": "088c3deb2086a097cbc8cd4886ae9a96049890d9174b764a3300b258faa31899"
         }
       }
     ],

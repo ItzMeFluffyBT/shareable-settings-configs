@@ -1703,7 +1703,9 @@ var SettingsConfigAnalysis = (function () {
         return result;
     }
 
-    return {importOptions:importOptions, extraGroup:extraGroup, compare: analyze, completeExport: completeExport, hasMouseSensitivity: hasMouseSensitivity,
+    function validateExport(code) { decode(code, SettingsConfigCreateZstd); }
+
+    return {validateExport:validateExport, importOptions:importOptions, extraGroup:extraGroup, compare: analyze, completeExport: completeExport, hasMouseSensitivity: hasMouseSensitivity,
         describe: function (code, heroSpecific, extraSettings) { return analyze(null, code, true, undefined, extraSettings); },
         importable: function (code, extra) { return scopedPayload(code, importOptions(undefined, true), extra, true); },
         prepareImport: function (code, choice) { return scopedPayload(code, importOptions(choice, false), undefined, false); },
@@ -1712,5 +1714,5 @@ var SettingsConfigAnalysis = (function () {
         isMouseSetting: function (key) { return Object.prototype.hasOwnProperty.call(mouseIds, key); }};
 }());
 
-export const {compare, describe, importable, requiresHeroSettings} = SettingsConfigAnalysis;
+export const {compare, describe, importable, requiresHeroSettings, validateExport} = SettingsConfigAnalysis;
 export const drawCrosshair = SettingsConfigCrosshair.drawWeb;

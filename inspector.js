@@ -42,7 +42,22 @@ function element(tag, text) {
 function renderChangeTable() {
     const container = el("settings-rows");
     container.replaceChildren();
-    el("settings-pages").hidden = changes.length <= pageSize;
+    const filter = el("changes-hero"), selected = filter.value || "";
+    const counts = new Map();
+    for (const change of changes) {
+        const hero = change.hero || "Base settings";
+        counts.set(hero,(counts.get(hero) || 0) + 1);
+    }
+    filter.replaceChildren();
+    for (const hero of ["", ...Array.from(counts.keys()).sort()]) {
+        const opt = element("option",(hero || "All heroes") + " (" + (hero ? counts.get(hero) : changes.length) + ")");
+        opt.value = hero; filter.append(opt);
+    }
+    filter.value = counts.has(selected) ? selected : "";
+    filter.hidden = !changes.length;
+    const rows = filter.value ? changes.filter(row => (row.hero || "Base settings") === filter.value) : changes;
+    filter.onchange = () => { page=0; renderChangeTable(); };
+    el("settings-pages").hidden = rows.length <= pageSize;
     if (!changes.length) {
         previewSavedCrosshairs(unpairedCrosshairs);
         return;
@@ -59,7 +74,7 @@ function renderChangeTable() {
     head.append(headings);
     const body = document.createElement("tbody");
     const start = page * pageSize;
-    for (const change of changes.slice(start, start + pageSize)) {
+    for (const change of rows.slice(start, start + pageSize)) {
         const tr = document.createElement("tr"), label = element("th", change.setting);
         label.scope = "row";
         const context = element("span", [change.hero, change.category].filter(Boolean).join(" · "));
@@ -78,7 +93,7 @@ function renderChangeTable() {
     }
     table.append(head, body); container.append(table);
     previewSavedCrosshairs(unpairedCrosshairs);
-    const pages = Math.ceil(changes.length / pageSize);
+    const pages = Math.ceil(rows.length / pageSize);
     el("previous-changes").hidden = page === 0;
     el("next-changes").hidden = page + 1 >= pages;
     el("changes-page").textContent = (page + 1) + " / " + pages;
