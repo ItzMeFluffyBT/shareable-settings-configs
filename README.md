@@ -1,2 +1,2 @@
-# shareable-settings-configs
-Shareable Settings Configs for Deadlock. Browse community presets, compare settings, and install the mod.
+# Enhanced Settings
+Enhanced Settings for Deadlock. Browse community presets, compare settings, and install the mod.

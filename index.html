@@ -6,11 +6,11 @@
     <meta name="referrer" content="no-referrer">
     <meta name="theme-color" content="#111b1b">
     <meta name="description" content="Save your Deadlock sensitivity, keybinds and reticle across accounts. Browse and share presets in the game.">
-    <meta property="og:title" content="Shareable Settings Configs">
+    <meta property="og:title" content="Enhanced Settings">
     <meta property="og:image" content="https://itzmefluffybt.github.io/shareable-settings-configs/art/shareable-settings-configs.jpg">
-    <meta property="og:image:alt" content="Shareable Settings Configs with the brass eye-key">
+    <meta property="og:image:alt" content="Enhanced Settings with the brass eye-key">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://shareable-settings-configs-api.ferkify-ai.workers.dev https://api.deadlock-api.com; img-src 'self' https://avatars.steamstatic.com https://api.deadlock-api.com; base-uri 'none'; form-action 'self'; object-src 'none'">
-    <title>Shareable Settings Configs</title>
+    <title>Enhanced Settings</title>
     <link rel="preload" href="./art/germania-one.ttf" as="font" type="font/ttf" crossorigin>
     <link rel="stylesheet" href="./site.css">
     <script type="module" src="./app.js"></script>
@@ -18,12 +18,12 @@
 <body>
 <header class="mast">
     <div class="mast-inner">
-        <a class="brand" href="#home" aria-label="Shareable Settings Configs home">
+        <a class="brand" href="#home" aria-label="Enhanced Settings home">
             <svg viewBox="0 0 52 52" aria-hidden="true" focusable="false">
                 <path d="M26 2l6 9 11 2 6 13-6 13-11 2-6 9-6-9-11-2-6-13 6-13 11-2z" fill="none" stroke="currentColor" stroke-width="2"/>
                 <path d="M7 26q19-24 38 0-19 24-38 0Z" fill="currentColor"/><circle cx="26" cy="26" r="8" fill="#152323"/><path d="m26 19 4 7-4 7-4-7z" fill="currentColor"/>
             </svg>
-            <span>Shareable<small>Settings Configs</small></span>
+            <span>Enhanced<small>Settings</small></span>
         </a>
         <nav aria-label="Library">
             <a href="#browse">Browse</a>
@@ -38,7 +38,7 @@
             <div class="city-backdrop" aria-hidden="true"></div>
             <div class="cover-inner">
                 <div class="cover-copy">
-                    <h1 id="landing-title" tabindex="-1"><span class="title-prefix">Shareable</span> <span>Settings</span> <span>Configs</span></h1>
+                    <h1 id="landing-title" tabindex="-1"><span>Enhanced</span> <span>Settings</span></h1>
                     <p>Keep your sensitivity, keybinds and reticle across accounts. Find and share presets in Deadlock.</p>
                     <div class="cover-actions">
                         <a class="button primary" href="#browse">Browse configs</a>
@@ -114,7 +114,7 @@
                         <li>Close Deadlock. In Steam, right-click <strong>Deadlock → Manage → Browse local files</strong>.</li>
                         <li>Inside <code>game/citadel</code>, create <code>addons/settings-config</code>. Put the extracted VPK there and name it <code>pak01_dir.vpk</code>.</li>
                         <li>Back up <code>game/citadel/gameinfo.gi</code>, then open it in a text editor. Under <strong>FileSystem → SearchPaths</strong>, add these entries above <code>Write citadel</code>. Skip any entry already present.<code class="mount-line">Game citadel/addons/settings-config<br>Mod citadel</code></li>
-                        <li>Save, launch from Steam, and open <strong>Esc → Settings Config</strong>. If a game update resets the search paths, restore those entries.</li>
+                        <li>Save, launch from Steam, and open <strong>Esc → Enhanced Settings</strong>. If a game update resets the search paths, restore those entries.</li>
                     </ol>
                 </details>
             </div>
@@ -144,7 +144,7 @@
             <header class="archive-heading"><h1 id="publish-title" tabindex="-1">Publish in Deadlock</h1></header>
             <div class="sheet">
                 <ol>
-                    <li>Open <strong>Esc → Settings Config</strong> in the hideout.</li>
+                    <li>Open <strong>Esc → Enhanced Settings</strong> in the hideout.</li>
                     <li>Choose <strong>Upload config</strong> to capture and name your settings. Steam verifies your account the first time.</li>
                     <li>Select <strong>Publish config</strong>.</li>
                 </ol>

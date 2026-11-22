@@ -2,7 +2,7 @@
   "format": "dmm-source",
   "protocolVersion": "1.0",
   "sourceId": "deadlock-config-library",
-  "name": "Shareable Settings Configs",
+  "name": "Enhanced Settings",
   "gameId": "deadlock",
   "catalog": {
     "kind": "static",

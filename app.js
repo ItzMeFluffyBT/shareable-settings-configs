@@ -92,7 +92,7 @@ async function showDetail(id) {
     fullPresetText = values ? JSON.stringify({format:"deadlock-settings-preset", version:1, name:p.name,
         code:p.code, heroSpecific:p.heroSpecific, extraSettings:p.extraSettings}) : "";
     el("detail-code").value = fullPresetText || nativeCodeText;
-    el("code-label").textContent = values ? "Shareable Settings Configs preset" : "Deadlock settings code";
+    el("code-label").textContent = values ? "Enhanced Settings preset" : "Deadlock settings code";
     el("copy-code").textContent = values ? "Copy preset" : "Copy code";
     el("copy-native").hidden = !values;
     el("export-code").open = false;
@@ -160,7 +160,7 @@ async function route(navigated = false) {
     if (el("details").open) el("details").close();
     if (listing) el("page-title").textContent = "Community configs";
     const heading = el(listing ? "page-title" : guide ? "publish-title" : page === "install" ? "install-title" : "landing-title");
-    document.title = view === "home" ? "Shareable Settings Configs" : heading.textContent + " | Shareable Settings Configs";
+    document.title = view === "home" ? "Enhanced Settings" : heading.textContent + " | Enhanced Settings";
     if (page === "install") {
         heading.focus({preventScroll: true});
         el("install").scrollIntoView();
@@ -183,7 +183,7 @@ el("more").onclick = () => loadList(true);
 el("close-detail").onclick = () => el("details").close();
 async function copyDownload(text, kind) {
     el("detail-code").value = text;
-    el("code-label").textContent = kind === "Preset" ? "Shareable Settings Configs preset" : "Deadlock settings code";
+    el("code-label").textContent = kind === "Preset" ? "Enhanced Settings preset" : "Deadlock settings code";
     try { await navigator.clipboard.writeText(text); el("copy-status").textContent = kind + " copied."; }
     catch { el("export-code").open = true; el("detail-code").select(); el("copy-status").textContent = kind + " selected. Use your browser’s Copy command."; }
 }
