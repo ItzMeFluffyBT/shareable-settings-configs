@@ -159,6 +159,7 @@ function renderSettings() {
 
 export function inspectPreset(p) {
     target = p;
+    el("capture-warning").hidden = p.extraSettings?.values?.citadel_show_active_slot_popup != null;
     el("baseline-editor").open = false;
     el("baseline-code").value = "";
     el("baseline-status").textContent = storageNote;

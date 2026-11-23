@@ -1,3 +1,4 @@
+.capture-triangle { color: #f2c75f; margin-inline-end: .4em; font-family: system-ui, sans-serif; }
 @font-face {
     font-family: Germania;
     src: url("./art/germania-one.ttf") format("truetype");

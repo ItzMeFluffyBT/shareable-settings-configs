@@ -114,7 +114,14 @@ async function showDetail(id) {
 function entry(item) {
     const row = node("article", null, "entry"), desc = node("div");
     const open = button(null, () => showDetail(item.id), "entry-open");
-    open.append(publisher(item), node("span", item.name, "entry-config-name"));
+    const name = node("span", item.name, "entry-config-name");
+    if (item.needsRecapture) {
+        const warning = node("span", "⚠︎", "capture-triangle");
+        warning.title = "Older or incomplete capture";
+        warning.setAttribute("aria-label", warning.title);
+        name.prepend(warning);
+    }
+    open.append(publisher(item), name);
     desc.append(open); row.append(desc);
     return row;
 }
