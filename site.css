@@ -143,7 +143,6 @@ nav a[aria-current="page"]::after, nav a:hover::after, nav a:focus-visible::afte
 .rank-medal { width: 2.9rem; height: 2.25rem; object-fit: contain; }
 .entry-config-name, #detail-by { color: var(--muted); font: 400 1rem/1.4 system-ui, sans-serif; overflow-wrap: anywhere; }
 .entry-config-name { padding-inline-start: 3.1rem; }
-.download-count { color:var(--muted); font:400 .875rem/1.4 system-ui,sans-serif; white-space:nowrap; }
 .actions, .dialog-actions { display: flex; flex-wrap: wrap; gap: .55rem; align-items: center; }
 .actions { flex-shrink: 0; }
 .favorite[aria-pressed="true"] { color: var(--mint); border-color: #88b39b; }

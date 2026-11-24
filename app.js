@@ -78,11 +78,6 @@ function publisher(preset) {
         badge.append(node("span", preset.rankLabel));
         identity.append(badge);
     }
-    if (Number.isInteger(preset.downloadCount)) {
-        const count=node("span",preset.downloadCount+(preset.downloadCount===1 ? " download" : " downloads"),"download-count");
-        count.title="Steam accounts that applied this config";
-        identity.append(count);
-    }
     return identity;
 }
 let fullPresetText = "", nativeCodeText = "", detailRequest = 0;
