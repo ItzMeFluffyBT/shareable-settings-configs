@@ -82,7 +82,7 @@ export async function search(q = "", favoritesOnly = false, cursor = null, mine 
         avatarUrl: p.avatarUrl ?? null, rank: p.rank ?? null,
         rankLabel: rankLabel(p.rank), rankLinked: p.rankLinked === true, steamVerified: p.steamVerified === true,
         heroSpecific: p.heroSpecific, updatedAt: p.updatedAt, needsRecapture:p.needsRecapture,
-        favorite: p.favorite === true, favoriteCount: p.favoriteCount ?? 0
+        favorite: p.favorite === true, favoriteCount: p.favoriteCount ?? 0, downloadCount:p.downloadCount
     }));
     await enrichPublishers(items);
     return {items, nextCursor:data.nextCursor};
